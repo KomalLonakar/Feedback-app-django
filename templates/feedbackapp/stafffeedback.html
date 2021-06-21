@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block content %}
+
+<nav class="navbar justify-content-between bg-primary" >
+    <div class="container">
+        <a href="{% url 'staffhomepage' %}" class="navbar-brand" style="margin-left: 10px;font-weight: bold;color: white">Feedback</a>
+    <form class="form-inline" method="post" action="{% url "logoutstaff" %}">
+        {% csrf_token %}
+        <a class="btn btn-light" href="{% url "staffhomepage" %}">questions</a>
+        <a class="btn btn-light" href="{% url "facultypage" %}">faculty</a>
+        <a class="btn btn-light" href="/staff/students/">students</a>
+        <input type="submit" value="logout" href="#" class="btn btn-danger"></input>
+    </form>
+    </div>
+    
+  </nav>
+<div id="app">
+{% for feedback in feedbacks %}
+    <!-- <p>{{feedback.studentid}}</p> -->
+    <div class="d-flex justify-content-center" style="width: 100vw">
+        <table style="width: 80vw;margin-top:2vh" class="table table-striped">
+            <tr>
+                <th>{{feedback.facultyname}}</th>
+            </tr>
+            <tr>
+                <td>
+                    <div id="feedback">{{feedback.feedback}}</div>
+                </td>
+            </tr>
+        </table></div>
+
+    
+    
+{% endfor %}
+</div>
+<script>
+    new Vue({
+        el : "#app",
+        delimiter : ['[[',']]'],
+        methods : {
+            
+        },
+
+        mounted(){
+            var questions = document.querySelectorAll('[id^=feedback]');
+            
+
+            for(var i = 0;i<questions.length;i++){
+                
+                var json = questions[i].innerHTML;
+                json = json.slice(1,-1);
+                json = json.split(",");
+                questions[i].innerHTML = "";
+                for (var item in json){
+                    var key =  json[item].split(":")[0].slice(1,-1);
+                    var value = json[item].split(":")[1].slice(2,-1);
+                    if(key[0]=="'"){
+                        key = key.slice(1,key.length);
+                    }
+                    // if(value==3){
+                    //     console.log("yes");
+                    // }
+                    if(value=='1'){
+                        value = 'poor';
+                    }
+                    if(value=='2'){
+                        value = 'average';
+                    }
+                    if(value=='3'){
+                        value = 'good';
+                    }
+                    if(value=='4'){
+                        value = 'best';
+                    }
+                    if(value=='5'){
+                        value = 'outstanding';
+                    }
+
+
+                    questions[i].innerHTML += '<p style="color : #34568B">'+key+'</p>' + '<p>'+value+'</p>';
+                    // console.log(json[item]);
+                }
+                // console.log(json);
+                // console.log(json.length);
+
+
+                // for (var i = 0;i<json.length;i++){
+                //     console.log(json[i]);
+                // }
+            }
+        }
+    })
+</script>
+
+
+{% endblock %}

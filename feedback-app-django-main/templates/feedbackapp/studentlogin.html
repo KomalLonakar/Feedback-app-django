@@ -1,0 +1,42 @@
+{% extends "base.html"%}
+{% load static %}
+{% block content %}
+    <style>
+        input {
+            margin-top: 3vh;
+            margin-bottom: 3vh;
+            text-align: center;
+
+        }
+    </style>
+    <nav class="navbar justify-content-between" style="background-color: #34568B;">
+        <a href="{% url 'homepage' %}" class="navbar-brand" style="margin-left: 10px;font-weight: bold;color: white">Feedback</a>
+        
+        
+    </nav>
+    <div class="d-flex justify-content-center align-items-center"
+     style="height:100vh;width: 100vw;">
+
+        <div class="d-flex justify-content-center align-items-center" style="padding: 4vw;background-color: #34568B;">
+            <div>
+                <h1 style="text-align: center;color:white">Student Login</h1>
+                <form method="post" action="{% url "validatestudent" %}">
+                    {% csrf_token %}
+                    <input placeholder="username" class="form-control" type="text" name="username" id="" required>
+                    <input placeholder="password" class="form-control" type="password" name="password" id="" required>
+                    <div class="d-flex justify-content-center">
+                        <input type="submit" value="login" class="btn btn-light"></input>
+
+                       
+                    </div>
+                    <p style="color: white;">dont have an account ? <span><a style="color: white;" href="{% url "studentsignuppage" %}">sign up</a></span> here</p>
+                    {% for message in messages %}
+                    <p style="text-align: center;color:red">invalid credentials</p>
+                    {% endfor %}
+                
+                </form>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

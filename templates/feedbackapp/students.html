@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    h1,p{
+        text-align: center;
+    }
+</style>
+<nav class="navbar justify-content-between bg-primary" >
+    <div class="container">
+        <a href="{% url 'staffhomepage' %}" class="navbar-brand" style="margin-left: 10px;font-weight: bold;color: white">Feedback</a>
+    <form class="form-inline" method="post" action="{% url "logoutstaff" %}">
+        {% csrf_token %}
+        <a class="btn btn-light" href="{% url "facultypage" %}">faculty</a>
+        <a class="btn btn-light" href="/staffhomepage/">questions</a>
+        <input type="submit" value="logout" href="#" class="btn btn-danger"></input>
+    </form>
+    </div>
+    
+  </nav>
+<div id="studentslist" class="d-flex justify-content-center" style="width: 100vw;">
+    <div>
+        <br><br>
+        
+        <table class="text-center table table-striped"style="width: 30vw;">
+            <tr class="bg-primary text-light">
+                <th>Student Name</th>
+            </tr>
+            {% for student in students %}
+            <tr>
+
+               
+                    
+                    <td style="font-size:1em" @click="redirectTo('{{student.id}}')">{{ student.username }}</td>
+                
+
+            </tr>
+            {% endfor %}
+        </table>
+        
+    </div>
+    
+</div>
+   
+
+<script>
+    new Vue({
+        el : '#studentslist',
+        delimiters : ['[[',']]'],
+        methods: {
+            redirectTo(id){
+                window.location.href = '/staff/feedback/'+id+'/';
+            }
+        },
+    })
+</script>
+{% endblock %}

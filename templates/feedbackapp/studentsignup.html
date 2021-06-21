@@ -1,0 +1,51 @@
+{% extends "base.html"%}
+{% load static %}
+{% block content %}
+    <style>
+        input {
+
+
+            text-align: center;
+
+        }
+    </style>
+    <nav class="navbar justify-content-between fixed-top bg-primary">
+        <div class="container">
+            <a href="{% url 'studentlogin' %}" class="navbar-brand" style="margin-left: 10px;font-weight: bold;color: white">Feedback</a>
+            
+        </div>
+        
+        
+        
+    </nav>
+    <div class="d-flex justify-content-center align-items-center"
+     style="height:100vh;width: 100vw;">
+
+        <div class="d-flex justify-content-center align-items-center bg-primary" style="padding: 4vw;">
+            <div>
+                <h2 style="text-align: center;color:white">Student SignUp</h2>
+                <br>
+                <form method="post" action="{% url "registerstudent" %}">
+                    {% csrf_token %}
+                    <input placeholder="username" class="form-control" type="text" name="username" id="" required>
+                     <br>
+                    <input placeholder="password" class="form-control" type="password" name="password" id="" required>
+                    <br>
+                    <input placeholder="re-enter password" class="form-control" type="password" name="repassword" id="" required>
+                    <br>
+                    <div class="d-flex justify-content-center">
+                        <input type="submit" value="sign up" class="btn btn-light"></input>
+                        
+                       
+                    </div>
+
+                    {% for message in messages %}
+                    <p style="text-align: center;" class="text-danger">{{message}}</p>
+                    {% endfor %}
+                
+                </form>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

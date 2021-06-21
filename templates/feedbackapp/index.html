@@ -1,0 +1,31 @@
+{% extends "base.html"%}
+{% load static %}
+{% block content %}
+<style>
+    h1 {
+        color: white;
+    }
+    
+</style>
+
+
+<nav class="navbar justify-content-between" style="background-color: #34568B;">
+    <a href="{% url 'homepage' %}" class="navbar-brand" style="margin-left: 10px;font-weight: bold;color: white">Feedback</a>
+    
+    
+  </nav>
+
+
+<div style="height:100vh;width: 100vw;" class="d-flex justify-content-around align-items-center">
+    <a style="text-decoration: none;" href="{% url 'studentlogin'%}">
+        <div class="d-flex justify-content-center align-items-center" style="height:20vw;width:20vw;background-color: #34568B;">
+            <h1>Student</h1>
+            </div>
+    </a>
+    
+    <a style="text-decoration: none;" href="{% url "stafflogin" %}">
+        <div class="d-flex justify-content-center align-items-center" style="height:20vw;width:20vw;background-color: #34568B;">
+            <h1>Staff</h1></div>
+    </a>
+</div>
+{% endblock %}

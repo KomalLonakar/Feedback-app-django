@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<style>
+    .form-check{
+        margin-right: 3vw;
+        margin-bottom: 1vw;
+    }
+</style>
+<nav class="navbar justify-content-between bg-primary" >
+    <div class="container">
+      <a href="/student/feedback/" class="navbar-brand" style="margin-left: 10px;font-weight: bold;color: white">Feedback</a>
+    
+      <a style="margin-right: 1vw;" href="/student/logout/" class="btn btn-danger">logout</a>
+    
+    </div>
+  </nav>
+<br><br><br>
+<div style="width: 100vw;" class="d-flex justify-content-center">
+    <form method="post" action="{% url 'savefeedback' %}">
+      <h2 class="list-group-item list-group-item-action active" style="text-align: center;">{{faculty.name}}</h2>
+        <br>
+        <input type="text" name="faculty" value="{{faculty.id}}" hidden>
+        {% csrf_token %}
+        {% for question in questions %}
+        <p>{{question.question}}</p>
+        <div class="d-flex">
+            <div class="form-check">
+                <input value="1" class="form-check-input" type="radio" name="{{question.id}}flexRadioDefault" id="{{question.id}}flexRadioDefault1">
+                <label class="form-check-label" for="{{question.id}}flexRadioDefault1">
+                    poor &#128533;
+                </label>
+              </div>
+              <div class="form-check">
+                <input value="2" class="form-check-input" type="radio" name="{{question.id}}flexRadioDefault" id="{{question.id}}flexRadioDefault2">
+                <label class="form-check-label" for="{{question.id}}flexRadioDefault2">
+                    average &#128527;
+                </label>
+              </div>
+              <div class="form-check">
+                <input value="3"  class="form-check-input" type="radio" name="{{question.id}}flexRadioDefault" id="{{question.id}}flexRadioDefault3">
+                <label class="form-check-label" for="{{question.id}}flexRadioDefault3">
+                    good &#128513;
+                </label>
+              </div>
+              <div class="form-check">
+                <input value="4"  class="form-check-input" type="radio" name="{{question.id}}flexRadioDefault" id="{{question.id}}flexRadioDefault4">
+                <label class="form-check-label" for="{{question.id}}flexRadioDefault4">
+                    best &#128512;
+                </label>
+              </div>
+              <div class="form-check">
+                <input value="5"  class="form-check-input" type="radio" name="{{question.id}}flexRadioDefault" id="{{question.id}}flexRadioDefault4">
+                <label class="form-check-label" for="{{question.id}}flexRadioDefault4">
+                    outstanding &#128526;
+                </label>
+              </div>
+        </div>
+        
+        {% endfor %}
+        <br>
+        <div class="d-flex justify-content-center">
+            <input type="submit" class="btn btn-primary" value="submit">
+        </div>
+        
+        </form>
+</div>
+
+{% endblock %}

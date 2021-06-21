@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<style>
+    h1 { 
+        color: white;
+    }
+    
+
+
+   
+</style>
+<nav class="navbar justify-content-between bg-primary">
+    <div class="container">
+        <a href="/student/feedback/" class="navbar-brand" style="margin-left: 10px;font-weight: bold;color: white">Feedback</a>
+    
+        <a href="/student/logout/" class="btn btn-danger">logout</a>
+
+    </div>
+    
+    
+  </nav>
+
+  
+  {% for message in messages %}
+  <div class="alert {{message.tags}}">
+        <p class="text-center">{{message}}</p>
+    </div>
+ {% endfor %}
+
+
+    <div id="faculties">
+        <div class="list-group container" style="width: 30vw;margin-top: 10vh;">
+            <a href="#" class="text-center list-group-item list-group-item-action active">Faculty</a>
+            {% for faculty in faculties %}
+            <a @click="redirectToFacultyFeedback('{{faculty.id}}')" class="text-center list-group-item list-group-item-action">{{faculty.name}}</a>
+            {% endfor %}
+            
+
+          </div>
+
+        
+
+                
+              
+      
+    </div>
+
+    
+    
+    
+</div>
+<script>
+    new Vue({
+        el : '#faculties',
+        delimiters : ['[[',']]'],
+        data : {
+
+        },
+        methods: {
+            redirectToFacultyFeedback(facultyid){
+                window.location.href = '/student/'+facultyid+'/givefeedback/';
+            }
+        },
+    })
+</script>
+{% endblock %}
